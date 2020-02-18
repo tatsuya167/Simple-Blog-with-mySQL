@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>| Detail |</title>
+</head>
+<body>
+    <div>
+        <h1>Author: <%= note.HandleName %></h1>
+        <h3>ID: <%= note.ID %></h3>
+        <br>
+        <div class="topic">
+            <p><%= note.Topic %></p>
+        </div>
+    </div>
+    <% if(!editMode) { %>
+        <a href="/notes/<%= note.ID %>?edit=true"><input type="submit" value="EDIT"></a> 
+
+        <form id="delSubmit" action="/delete" method="POST">
+            <input type="hidden" name="deleId" value="<%= note.ID %>" />
+            <input type="button" value="DELETE" onclick="checkDel()" />
+        </form>
+    <% } %>
+    <br>
+
+    <% if(editMode) { %>
+        <h2>Edit</h2>
+        <form action="/update" method="post">
+            <input type="hidden" name="noteId" value="<%= note.ID%>" >
+            <input type="text" name="handleName" value="<%= note.HandleName%>" />
+            <input type="text" name="topic" value="<%= note.Topic%>" />
+            <input type="submit" value="UPDATE" />
+        </form>
+    <% } %>
+    <br>
+    
+    <a href="/read">read</a>
+    <a href="/">Top</a>
+
+    <script src="../public/script/confirmDel.js"></script>   
+</body>
+</html>
